@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 const ResultSchema = mongoose.Schema({
   game: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'games',
+    ref: 'game',
     required: true
   },
   team: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'teams',
+    ref: 'team',
     required: true
   },
   goals: {

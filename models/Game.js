@@ -11,12 +11,12 @@ const GameSchema = mongoose.Schema({
   },
   homeTeam: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'teams',
+    ref: 'team',
     required: true
   },
   awayTeam: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'teams',
+    ref: 'team',
     required: true
   },
   date: {
@@ -25,7 +25,7 @@ const GameSchema = mongoose.Schema({
   },
   location: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'venues',
+    ref: 'venue',
     required: true
   }
 });

@@ -14,8 +14,8 @@ app.get('/', (req, res) => res.json({ msg: 'Welcome to GNFL' }));
 //Define routes
 app.use('/api/users', require('./routes/users'));
 app.use('/api/auth', require('./routes/auth'));
-app.use('/api/club', require('./routes/club'));
 app.use('/api/venue', require('./routes/venue'));
+app.use('/api/club', require('./routes/club'));
 app.use('/api/team', require('./routes/team'));
 app.use('/api/grade', require('./routes/grade'));
 app.use('/api/game', require('./routes/game'));

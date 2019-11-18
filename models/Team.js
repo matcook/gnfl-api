@@ -7,12 +7,12 @@ const TeamSchema = mongoose.Schema({
   },
   club: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'clubs',
+    ref: 'club',
     required: true
   },
   grade: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'grades',
+    ref: 'grade',
     required: true
   }
 });

@@ -10,8 +10,7 @@ const Club = require('../models/Club');
 //@access   private
 router.get('/', async (req, res) => {
   try {
-    console.log(req);
-    const club = await Club.find();
+    const club = await Club.find().populate('location');
     res.json(club);
   } catch (err) {
     console.error(err.message);
