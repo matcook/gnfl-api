@@ -1,18 +1,30 @@
 const mongoose = require('mongoose');
 
 const ResultSchema = mongoose.Schema({
-  name: {
-    type: String,
+  game: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'games',
     required: true
   },
-  club: {
+  team: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'clubs',
+    ref: 'teams',
     required: true
   },
-  grade: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'grades',
+  goals: {
+    type: Number,
+    required: true
+  },
+  behinds: {
+    type: Number,
+    required: true
+  },
+  pointsFor: {
+    type: Number,
+    required: true
+  },
+  pointsAgainst: {
+    type: Number,
     required: true
   }
 });

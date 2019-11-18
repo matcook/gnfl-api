@@ -10,8 +10,8 @@ const ClubSchema = mongoose.Schema({
     ref: 'teams'
   },
   location: {
-    type: String,
-    required: true
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'venues'
   },
   phone: {
     type: String,

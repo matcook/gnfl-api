@@ -22,6 +22,11 @@ const GameSchema = mongoose.Schema({
   date: {
     type: Date,
     required: true
+  },
+  location: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'venues',
+    required: true
   }
 });
 
