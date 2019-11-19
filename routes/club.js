@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
 
-const Venue = require('../models/Venue');
 const Club = require('../models/Club');
 
 // @route   GET api/club
@@ -10,7 +9,13 @@ const Club = require('../models/Club');
 //@access   private
 router.get('/', async (req, res) => {
   try {
-    const club = await Club.find().populate('location');
+    const club = await Club.find()
+      .populate('location')
+      .populate({
+        path: 'teams',
+        select: '-club',
+        populate: { path: 'grade', select: 'name -_id ' }
+      });
     res.json(club);
   } catch (err) {
     console.error(err.message);

@@ -5,10 +5,12 @@ const ClubSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  teams: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'team'
-  },
+  teams: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'team'
+    }
+  ],
   location: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'venue'

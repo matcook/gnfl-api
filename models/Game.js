@@ -9,6 +9,11 @@ const GameSchema = mongoose.Schema({
     type: Number,
     required: true
   },
+  grade: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'grade',
+    required: true
+  },
   homeTeam: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'team',

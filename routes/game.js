@@ -1,34 +1,103 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth');
 
-const Club = require('../models/Club');
+const Game = require('../models/Game');
 
-// @route   GET api/match
-//desc      Get all matches
+// @route   GET api/game
+//desc      Get all games
 //@access   private
-router.get('/', (req, res) => {
-  res.send('get matches');
+router.get('/', async (req, res) => {
+  try {
+    const game = await Game.find()
+      .populate('location grade')
+      .populate({
+        path: 'homeTeam awayTeam',
+        select: '-grade',
+        populate: { path: 'club', select: 'name -_id ' }
+      });
+    res.json(game);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
 });
 
-// @route   POST api/match
-//desc      Add new match
+// @route   POST api/game
+//desc      Add new game
 //@access   private
-router.post('/', (req, res) => {
-  res.send('Add match');
+router.post('/', auth, async (req, res) => {
+  const { season, round, grade, date, homeTeam, awayTeam, location } = req.body;
+
+  try {
+    let game = await Game.findOne({ date, location });
+
+    if (game) {
+      return res.status(400).json({ msg: 'Game already exists' });
+    }
+
+    game = new Game({
+      season,
+      round,
+      grade,
+      date,
+      homeTeam,
+      awayTeam,
+      location
+    });
+
+    await game.save();
+    res.send('game saved');
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
 });
 
-// @route   PUT api/match/:id
-//desc      Update match
+// @route   PUT api/game/:id
+//desc      Update game
 //@access   private
-router.put('/:id', (req, res) => {
-  res.send('Update match');
+router.put('/:id', auth, async (req, res) => {
+  const { season, round, grade, date, homeTeam, awayTeam, location } = req.body;
+  const gameFields = {};
+  if (season) gameFields.season = season;
+  if (round) gameFields.round = round;
+  if (location) gameFields.location = location;
+  if (grade) gameFields.grade = grade;
+  if (date) gameFields.date = date;
+  if (homeTeam) gameFields.homeTeam = homeTeam;
+  if (awayTeam) gameFields.awayTeam = awayTeam;
+
+  try {
+    let game = await Game.findById(req.params.id);
+    if (!game) return res.status(404).json({ msg: 'Game not found' });
+
+    game = await Game.findByIdAndUpdate(
+      req.params.id,
+      { $set: gameFields },
+      { new: true }
+    );
+    res.json(game);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
 });
 
-// @route   DELETE api/match/:id
-//desc      Delete match
+// @route   DELETE api/game/:id
+//desc      Delete game
 //@access   private
-router.delete('/:id', (req, res) => {
-  res.send('Delete match');
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    let game = await Game.findById(req.params.id);
+    if (!game) return res.status(404).json({ msg: 'Game not found' });
+
+    await Game.findByIdAndRemove(req.params.id);
+    res.json({ msg: 'Game removed' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
 });
 
 module.exports = router;
