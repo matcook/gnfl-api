@@ -9,7 +9,17 @@ const Result = require('../models/Result');
 //@access   private
 router.get('/', async (req, res) => {
   try {
-    const result = await Result.find().populate('game team');
+    const result = await Result.find()
+      .populate('game team')
+      .populate({
+        path: 'game',
+        select: 'season round'
+      })
+      .populate({
+        path: 'team',
+        select: 'grade club',
+        populate: { path: 'grade club', select: 'name -_id' }
+      });
     res.json(result);
   } catch (err) {
     console.error(err.message);
