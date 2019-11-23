@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const GameSchema = mongoose.Schema({
   season: {
@@ -10,18 +10,7 @@ const GameSchema = mongoose.Schema({
     required: true
   },
   grade: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'grade',
-    required: true
-  },
-  homeTeam: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'team',
-    required: true
-  },
-  awayTeam: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'team',
+    type: String,
     required: true
   },
   date: {
@@ -30,9 +19,35 @@ const GameSchema = mongoose.Schema({
   },
   location: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'venue',
+    ref: "venue",
     required: true
+  },
+  homeTeam: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "team",
+    required: true
+  },
+  awayTeam: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "team",
+    required: true
+  },
+  homeTeamGoals: {
+    type: Number,
+    default: 0
+  },
+  homeTeamBehinds: {
+    type: Number,
+    default: 0
+  },
+  awayTeamGoals: {
+    type: Number,
+    default: 0
+  },
+  awayTeamBehinds: {
+    type: Number,
+    default: 0
   }
 });
 
-module.exports = mongoose.model('game', GameSchema);
+module.exports = mongoose.model("game", GameSchema);
