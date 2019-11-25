@@ -1,5 +1,5 @@
 import React from 'react';
-import Ladder from '../results/Ladder';
+import Ladder from '../ladder/Ladder';
 
 const Home = () => {
   return (

@@ -19,7 +19,7 @@ app.use('/api/club', require('./routes/club'));
 app.use('/api/team', require('./routes/team'));
 app.use('/api/grade', require('./routes/grade'));
 app.use('/api/game', require('./routes/game'));
-app.use('/api/result', require('./routes/result'));
+app.use('/api/season', require('./routes/season'));
 
 const PORT = process.env.PORT || 5000;
 
