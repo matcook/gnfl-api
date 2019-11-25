@@ -11,22 +11,35 @@ const Ladder = () => {
   const [seasonQuery, setSeasonQuery] = useState('2019');
 
   useEffect(() => {
-    const getMatches = async () => {
-      const result = await axios.get(`/api/game/${gradeQuery}/${seasonQuery}`);
-      setMatches(result.data);
-    };
+    const source = axios.CancelToken.source();
 
-    const getOptions = async () => {
-      const result = await axios.all([
-        axios.get('/api/grade'),
-        axios.get('/api/season')
-      ]);
-      setGrades(result[0].data);
-      setSeasons(result[1].data);
-    };
+    const getData = async () => {
+      try {
+        const [grade, season] = await Promise.all([
+          axios.get(`/api/grade`, { cancelToken: source.token }),
+          axios.get(`/api/season`, { cancelToken: source.token })
+        ]);
+        setGrades(grade.data);
+        setSeasons(season.data);
 
-    getMatches();
-    getOptions();
+        const matches = await axios.get(
+          `/api/game/${gradeQuery}/${seasonQuery}`,
+          { cancelToken: source.token }
+        );
+        setMatches(matches.data);
+        console.log(matches);
+      } catch (err) {
+        if (axios.isCancel(err)) {
+          console.log('Request Cancelled');
+        } else {
+          console.log(err);
+        }
+      }
+    };
+    getData();
+    return () => {
+      source.cancel();
+    };
   }, [seasonQuery, gradeQuery]);
 
   const { clubs } = useContext(ClubContext);

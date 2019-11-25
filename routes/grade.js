@@ -9,7 +9,7 @@ const Grade = require('../models/Grade');
 //@access   private
 router.get('/', async (req, res) => {
   try {
-    const grade = await Grade.find();
+    const grade = await Grade.find().select('-__v');
     res.json(grade);
   } catch (err) {
     console.error(err.message);

@@ -1,9 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
-import Club from './dashboard/Club';
-import Match from './dashboard/Match';
-import News from './dashboard/News';
+import Matches from '../matches/Matches';
 
 const Dashboard = () => {
   return (
@@ -13,20 +11,20 @@ const Dashboard = () => {
         <nav>
           <ul>
             <li>
-              <Link to='/dashboard/club'>Clubs</Link>
+              <Link to="/dashboard/club">Clubs</Link>
             </li>
             <li>
-              <Link to='/dashboard/match'>Matches</Link>
+              <Link to="/dashboard/match">Matches</Link>
             </li>
             <li>
-              <Link to='/dashboard/news'>News</Link>
+              <Link to="/dashboard/news">News</Link>
             </li>
           </ul>
         </nav>
         <Switch>
-          <Route exact path='/dashboard/club' component={Club} />
-          <Route exact path='/dashboard/match' component={Match} />
-          <Route exact path='/dashboard/news' component={News} />
+          {/* <Route exact path="/dashboard/club" component={Club} /> */}
+          <Route exact path="/dashboard/match" component={Matches} />
+          {/* <Route exact path="/dashboard/news" component={News} /> */}
         </Switch>
       </div>
     </Router>
