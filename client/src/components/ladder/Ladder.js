@@ -1,6 +1,5 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import LadderItem from './LadderItem';
-import ClubContext from '../../context/club/clubContext';
 import axios from 'axios';
 
 const Ladder = () => {
@@ -27,7 +26,6 @@ const Ladder = () => {
           { cancelToken: source.token }
         );
         setMatches(matches.data);
-        console.log(matches);
       } catch (err) {
         if (axios.isCancel(err)) {
           console.log('Request Cancelled');
@@ -41,9 +39,6 @@ const Ladder = () => {
       source.cancel();
     };
   }, [seasonQuery, gradeQuery]);
-
-  const { clubs } = useContext(ClubContext);
-  const teams = clubs.map(club => club.name);
 
   return (
     <Fragment>
@@ -67,6 +62,7 @@ const Ladder = () => {
           <li key={match._id}>{match.season}</li>
         ))}
       </ul>
+      <LadderItem />
     </Fragment>
   );
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 import Matches from '../matches/Matches';
+import Clubs from '../clubs/Clubs';
 
 const Dashboard = () => {
   return (
@@ -22,8 +23,8 @@ const Dashboard = () => {
           </ul>
         </nav>
         <Switch>
-          {/* <Route exact path="/dashboard/club" component={Club} /> */}
-          <Route exact path="/dashboard/match" component={Matches} />
+          <Route path="/dashboard/club" component={Clubs} />
+          <Route path="/dashboard/match" component={Matches} />
           {/* <Route exact path="/dashboard/news" component={News} /> */}
         </Switch>
       </div>

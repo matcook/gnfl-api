@@ -27,7 +27,6 @@ const Matches = () => {
           { cancelToken: source.token }
         );
         setMatches(matches.data);
-        console.log(matches);
       } catch (err) {
         if (axios.isCancel(err)) {
           console.log('Request Cancelled');
@@ -41,7 +40,6 @@ const Matches = () => {
       source.cancel();
     };
   }, [seasonQuery, gradeQuery]);
-
   const rounds = matches.map(match => match.round);
 
   return (
