@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import AuthContext from '../../context/auth/authContext';
 
 import Matches from '../matches/Matches';
 import Clubs from '../clubs/Clubs';
 
 const Dashboard = () => {
+  const authContext = useContext(AuthContext);
+  useEffect(() => {
+    authContext.loadUser();
+    //eslint-disable-next-line
+  }, []);
   return (
     <Router>
       <div>
